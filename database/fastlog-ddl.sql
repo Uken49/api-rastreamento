@@ -1,15 +1,18 @@
-create tabase fastlog
+CREATE DATABASE fastlog;
 
-use fastlog
+CREATE TABLE status (
+    id UUID PRIMARY KEY NOT NULL,
+    descricao VARCHAR(256) NOT NULL,
+    pais VARCHAR(256) NOT NULL,
+    cidade VARCHAR(256) NOT NULL,
+    data_criacao TIMESTAMP NOT NULL
+);
 
-create table encomenda
-    id guid,
-    nome varchar(40),
-    pkStatus guid,
-    origem varchar (40),
-    destino varchar (40);
+CREATE TABLE encomenda (
+    id UUID PRIMARY KEY NOT NULL,
+    nome VARCHAR(256) NOT NULL,
+    status_fk UUID REFERENCES status(id) NOT NULL,
+    origem VARCHAR(256) NOT NULL,
+    destino VARCHAR(256) NOT NULL
+);
 
-create table status
-    id guid,
-    descricao_status varchar(40),
-    data_criacao timestamp;
