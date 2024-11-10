@@ -28,8 +28,18 @@ public class StatusEntity {
     @Column(name = "data_criacao")
     LocalDateTime dataCriacao;
 
-    @Builder
-    public StatusEntity() {
-
+    @Builder(toBuilder = true)
+    public StatusEntity(
+            UUID id,
+            String descricao,
+            String pais,
+            String cidade,
+            LocalDateTime dataCriacao
+    ) {
+        this.id = id;
+        this.descricao = descricao;
+        this.pais = pais;
+        this.cidade = cidade;
+        this.dataCriacao = dataCriacao;
     }
 }

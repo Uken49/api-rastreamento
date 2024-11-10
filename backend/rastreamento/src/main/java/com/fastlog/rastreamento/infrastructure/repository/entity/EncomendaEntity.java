@@ -28,8 +28,18 @@ public class EncomendaEntity {
     @JoinColumn(name = "status_fk", referencedColumnName = "id")
     StatusEntity status;
 
-    @Builder
-    public EncomendaEntity() {
-
+    @Builder(toBuilder = true)
+    public EncomendaEntity(
+            UUID id,
+            String nome,
+            String origem,
+            String destino,
+            StatusEntity status
+    ) {
+        this.id = id;
+        this.nome = nome;
+        this.origem = origem;
+        this.destino = destino;
+        this.status = status;
     }
 }

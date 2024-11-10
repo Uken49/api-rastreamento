@@ -23,7 +23,7 @@ public class EncomendaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RespostaCadastrarEncomendaDto cadastrarEncomendaEndpoint(@Valid @RequestBody CadastrarEncomendaDto dadosEncomenda) {
+    public RespostaCadastrarEncomendaDto cadastrarEncomendaEndpoint(@RequestBody @Valid final CadastrarEncomendaDto dadosEncomenda) {
         return cadastrarEncomenda.cadastarEncomenda(dadosEncomenda);
     }
 }

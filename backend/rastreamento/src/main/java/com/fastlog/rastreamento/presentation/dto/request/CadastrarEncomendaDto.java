@@ -1,7 +1,6 @@
 package com.fastlog.rastreamento.presentation.dto.request;
 
 import jakarta.validation.Valid;
-import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
 public record CadastrarEncomendaDto(
@@ -15,10 +14,6 @@ public record CadastrarEncomendaDto(
         CadastrarStatusDto status
 ) {
 
-    @Builder
-    public CadastrarEncomendaDto {
-    }
-
     public record CadastrarStatusDto(
             @Length(min = 3, max = 256, message = "O comprimento da descrição deve ser entre 3 e 256")
             String descricao,
@@ -27,10 +22,6 @@ public record CadastrarEncomendaDto(
             @Length(min = 3, max = 256, message = "O comprimento da cidade deve ser entre 3 e 256")
             String cidade
     ) {
-
-        @Builder
-        public CadastrarStatusDto {
-        }
 
     }
 }
