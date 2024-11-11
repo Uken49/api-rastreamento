@@ -4,25 +4,9 @@ server:
 spring:
   application:
     name: gestao-usuarios
+  profiles:
+    active: ${ENVIRONMENT:prod}  # Definindo o perfil ativo com a variável ENVIRONMENT
 
   sql:
     init:
       continue-on-error: true
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/FASTLOG
-    username: root
-    password: root
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 0
-      maximum-pool-size: 15
-      connection-timeout: 3000
-      idle-timeout: 300000
-      max-lifetime: 600000
-      initialization-fail-timeout: -1
-      validation-timeout: 1000
-
-  jpa:
-    generate-ddl: false
-    show-sql: false
