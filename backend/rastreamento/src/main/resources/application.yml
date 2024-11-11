@@ -1,0 +1,16 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gestao-usuarios
+  profiles:
+    active: ${ENVIRONMENT:prod}
+
+  sql:
+    init:
+      continue-on-error: true
+
+  jpa:
+    generate-ddl: false
+    show-sql: false
