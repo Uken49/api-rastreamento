@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test:
+
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,10 +23,26 @@ jobs:
           distribution: adopt
           java-version: ${{ matrix.java-version }}
 
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+  test:
+    needs: build
+
+    key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+    restore-keys: |
+      ${{ runner.os }}-maven-
+
+    steps:
       - name: Testes unitários
         run: |
           cd backend/rastreamento
-          mvn -B -q install
+          mvn -B -e -q install -DENVIRONMENT=test
 
       - name: Teste com Checkstyle
         run: mvn checkstyle:check
