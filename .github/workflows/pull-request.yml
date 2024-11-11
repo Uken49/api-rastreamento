@@ -10,9 +10,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java-version: [21, 17]
 
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +17,8 @@ jobs:
       - name: Configurando Java JDK
         uses: actions/setup-java@v4.5.0
         with:
-          distribution: adopt
-          java-version: ${{ matrix.java-version }}
+          distribution: 'adopt'
+          java-version: '21'
 
       - name: Testes unitários
         run: |
