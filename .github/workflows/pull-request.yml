@@ -26,4 +26,6 @@ jobs:
           mvn -B -e -q install -DENVIRONMENT=test
 
       - name: Teste com Checkstyle
-        run: mvn checkstyle:check
+        run: |
+          cd backend/rastreamento
+          mvn checkstyle:check -ntp
