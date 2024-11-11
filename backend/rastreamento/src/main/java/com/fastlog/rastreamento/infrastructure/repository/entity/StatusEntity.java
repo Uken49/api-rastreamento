@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Immutable;
@@ -27,6 +28,10 @@ public class StatusEntity {
     @CreationTimestamp
     @Column(name = "data_criacao")
     LocalDateTime dataCriacao;
+
+    @Generated
+    public StatusEntity() {
+    }
 
     @Builder(toBuilder = true)
     public StatusEntity(

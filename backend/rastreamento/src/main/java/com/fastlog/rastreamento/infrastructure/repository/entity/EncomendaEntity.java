@@ -10,6 +10,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.UUID;
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 
@@ -27,6 +28,10 @@ public class EncomendaEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "status_fk", referencedColumnName = "id")
     StatusEntity status;
+
+    @Generated
+    public EncomendaEntity() {
+    }
 
     @Builder(toBuilder = true)
     public EncomendaEntity(
