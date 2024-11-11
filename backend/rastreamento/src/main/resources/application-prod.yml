@@ -12,7 +12,3 @@ spring:
       max-lifetime: 600000
       initialization-fail-timeout: -1
       validation-timeout: 1000
-
-  jpa:
-    generate-ddl: false
-    show-sql: false

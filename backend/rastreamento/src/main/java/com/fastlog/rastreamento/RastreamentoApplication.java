@@ -1,5 +1,6 @@
 package com.fastlog.rastreamento;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 @SpringBootApplication
 public class RastreamentoApplication {
 
+    private static final List<String> AMBIENTES_PERMITIDOS = List.of("prod", "dev", "test");
+
     public static void main(String[] args) {
         SpringApplication.run(RastreamentoApplication.class, args);
     }
@@ -17,11 +20,16 @@ public class RastreamentoApplication {
     @Component
     public static class Runner implements ApplicationRunner {
 
-        @Value("${profiles.active}")
+        @Value("${spring.profiles.active}")
         private String ambiente;
 
         @Override
-        public void run(ApplicationArguments args) throws Exception {
+        public void run(ApplicationArguments args) {
+            if (!AMBIENTES_PERMITIDOS.contains(ambiente)) {
+                System.exit(1);
+                throw new IllegalArgumentException("Variável 'ENVIRONMENT' deve ser preenchida com 'prod', 'dev' ou 'test'.");
+            }
+
             System.out.println("Aplicação rodando no ambiente: " + ambiente);
         }
     }
