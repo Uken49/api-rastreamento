@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,7 @@ jobs:
           java-version: '21'
 
       - name: Testes unitários
-        run: |
-          cd backend/rastreamento
-          mvn -B -e -q install -DENVIRONMENT=test
+        run: mvn -B -e -q install -DENVIRONMENT=test
 
       - name: Teste com Checkstyle
-        run: |
-          cd backend/rastreamento
-          mvn checkstyle:check -ntp
+        run: mvn -B -e -q checkstyle:check -ntp
