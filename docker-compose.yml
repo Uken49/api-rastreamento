@@ -10,7 +10,7 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./../../database/fastlog-ddl.sql:/docker-entrypoint-initdb.d/fastlog-ddl.sql
+      - ./database/fastlog-ddl.sql:/docker-entrypoint-initdb.d/fastlog-ddl.sql
 
   adminer:
     image: adminer
