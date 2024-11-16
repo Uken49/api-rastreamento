@@ -3,9 +3,9 @@ server:
 
 spring:
   application:
-    name: gestao-usuarios
+    name: api-rastreamento
   profiles:
-    active: ${ENVIRONMENT:prod}
+    active: ${SPRING_APP_ENVIRONMENT:prod}
 
   sql:
     init:

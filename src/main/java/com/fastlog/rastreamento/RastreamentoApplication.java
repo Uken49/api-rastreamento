@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @SpringBootApplication
 public class RastreamentoApplication {
 
-    private static final List<String> AMBIENTES_PERMITIDOS = List.of("prod", "dev", "test");
+    private static final List<String> AMBIENTES_PERMITIDOS = List.of("prod", "local", "local-docker", "test");
 
     public static void main(String[] args) {
         SpringApplication.run(RastreamentoApplication.class, args);
@@ -27,7 +27,9 @@ public class RastreamentoApplication {
         public void run(ApplicationArguments args) {
             if (!AMBIENTES_PERMITIDOS.contains(ambiente)) {
                 System.exit(1);
-                throw new IllegalArgumentException("Variável 'ENVIRONMENT' deve ser preenchida com 'prod', 'dev' ou 'test'.");
+                throw new IllegalArgumentException(
+                        "Variável 'SPRING_APP_ENVIRONMENT' deve ser preenchida com 'prod', 'local', 'local-docker' ou 'test'."
+                );
             }
 
             System.out.println("Aplicação rodando no ambiente: " + ambiente);

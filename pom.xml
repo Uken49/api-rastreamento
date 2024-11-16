@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fastlog</groupId>
 	<artifactId>api-rastreamento</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>api-rastreamento</name>
 	<description>API que com funções relacionadas ao rastreamento das encomendas dos usuários</description>
 	<url/>
