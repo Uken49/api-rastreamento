@@ -21,7 +21,7 @@ jobs:
           java-version: '21'
 
       - name: Testes unitários
-        run: mvn -B -e -q install -DENVIRONMENT=test
+        run: mvn -B -e -q install -DSPRING_APP_ENVIRONMENT=test
 
       - name: Teste com Checkstyle
         run: mvn -B -e -q checkstyle:check -ntp
