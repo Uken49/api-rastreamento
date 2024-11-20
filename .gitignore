@@ -6,6 +6,7 @@ target/
 ### TERRAFORM ###
 .terraform/
 .terraform.lock.hcl
+*.pem
 
 ### STS ###
 .apt_generated
