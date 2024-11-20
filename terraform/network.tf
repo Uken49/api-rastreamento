@@ -17,7 +17,7 @@ resource "aws_nat_gateway" "nat_fastlog" {
   allocation_id     = aws_eip.eip_fastlog.id
   subnet_id         = aws_subnet.subnet_public_fastlog.id
   connectivity_type = "public"
-  depends_on = [aws_internet_gateway.igw_fastlog]
+  depends_on        = [aws_internet_gateway.igw_fastlog]
 }
 
 # Subnets
@@ -39,19 +39,18 @@ resource "aws_route_table" "rt_public_fastlog" {
   vpc_id = aws_vpc.vpc_fastlog.id
 
   route {
-    cidr_block = "10.0.0.0/28"
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw_fastlog.id
   }
-
 }
 
 resource "aws_route_table" "rt_private_fastlog" {
   vpc_id = aws_vpc.vpc_fastlog.id
 
   route {
-    cidr_block = "10.0.0.16/28"
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_fastlog.id
   }
-
 }
 
 resource "aws_route_table_association" "rta_public_fastlog" {
