@@ -36,6 +36,10 @@ resource "aws_security_group" "sg_conexao_frontend" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  
+  tags = {
+    Name = "sg_conexao_frontend"
+  }
 }
 
 resource "aws_security_group" "sg_conexao_backend" {
@@ -61,6 +65,10 @@ resource "aws_security_group" "sg_conexao_backend" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  
+  tags = {
+    Name = "sg_conexao_backend"
   }
 }
 
