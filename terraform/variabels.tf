@@ -22,3 +22,9 @@ variable "REGION" {
   nullable = false
   sensitive = false
 }
+
+variable "RDS_PASSWORD" {
+  type     = string
+  nullable = false
+  sensitive = true
+}

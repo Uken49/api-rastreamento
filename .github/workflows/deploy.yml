@@ -8,19 +8,13 @@ on:
 
 jobs:
 
-  build:
+  deploy:
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Configurando Java JDK
-      uses: actions/setup-java@v4.5.0
-      with:
-        distribution: 'adopt'
-        java-version: '21'
-    
     - name: Construindo container
       run: docker build . --file Dockerfile --tag uken49/api-rastreamento:$(date +%s)
   
