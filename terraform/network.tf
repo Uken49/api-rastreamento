@@ -2,6 +2,9 @@
 resource "aws_vpc" "vpc-fastlog" {
   cidr_block = "10.0.0.0/26"
 
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
   tags = {
     Name        = "vpc-fastlog"
     Product     = "fastlog"
@@ -103,7 +106,7 @@ resource "aws_nat_gateway" "nat-fastlog" {
   subnet_id         = each.value
   connectivity_type = "public"
 
-  depends_on        = [aws_internet_gateway.igw-fastlog]
+  depends_on = [aws_internet_gateway.igw-fastlog]
 
   tags = {
     Name        = "nat-private-${each.key}"
@@ -150,12 +153,12 @@ resource "aws_route_table" "rt_private-fastlog" {
 
 # Associação para sub-redes públicas
 resource "aws_route_table_association" "rta_public-fastlog-east-1a" {
-  subnet_id      =  aws_subnet.public-fastlog-east_1a.id
+  subnet_id      = aws_subnet.public-fastlog-east_1a.id
   route_table_id = aws_route_table.rt_public-fastlog.id
 }
 
 resource "aws_route_table_association" "rta_public-fastlog-east-1b" {
-  subnet_id      =  aws_subnet.public-fastlog-east_1b.id
+  subnet_id      = aws_subnet.public-fastlog-east_1b.id
   route_table_id = aws_route_table.rt_public-fastlog.id
 }
 
