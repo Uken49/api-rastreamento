@@ -11,7 +11,8 @@ WORKDIR /app
 COPY --from=build /build/target/api-rastreamento-*.jar api-rastreamento.jar
 
 ENV SPRING_APP_ENVIRONMENT=prod
+ENV DATASOURCE_POSTGRES_PASSWORD=
 
-ENTRYPOINT ["java", "-jar", "-DSPRING_APP_ENVIRONMENT=${SPRING_APP_ENVIRONMENT}", "/app/api-rastreamento.jar"]
+ENTRYPOINT ["java", "-jar", "-DSPRING_APP_ENVIRONMENT=${SPRING_APP_ENVIRONMENT}", "-DDATASOURCE_POSTGRES_PASSWORD=${DATASOURCE_POSTGRES_PASSWORD}","/app/api-rastreamento.jar"]
 
 EXPOSE 8000
