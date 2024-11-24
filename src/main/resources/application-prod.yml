@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/FASTLOG
-    username: ${DATASOURCE_POSTGRES_USER}
+    url: jdbc:postgresql://prod-fastlog.ctg6686gojod.us-east-1.rds.amazonaws.com:5432/fastlog
+    username: postgres
     password: ${DATASOURCE_POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
