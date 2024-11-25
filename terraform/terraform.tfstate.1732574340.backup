@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.5.6",
-  "serial": 305,
+  "serial": 234,
   "lineage": "79fdb01d-f086-1d0e-9ba0-1e6ab620e1f7",
   "outputs": {
     "rds_endpoint": {
@@ -11,109 +11,6 @@
     }
   },
   "resources": [
-    {
-      "mode": "managed",
-      "type": "aws_appautoscaling_policy",
-      "name": "web_scaling_up",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "alarm_arns": [
-              "arn:aws:cloudwatch:us-east-1:764543902808:alarm:TargetTracking-service/fastlog_rastreamento/web-AlarmHigh-0f3b3f8e-a268-4745-8b17-026f89a3b398",
-              "arn:aws:cloudwatch:us-east-1:764543902808:alarm:TargetTracking-service/fastlog_rastreamento/web-AlarmLow-b6156c7d-8948-419d-b990-6e27c666f4b6"
-            ],
-            "arn": "arn:aws:autoscaling:us-east-1:764543902808:scalingPolicy:034808d5-d5fa-4003-9749-9dd6a21f6bd9:resource/ecs/service/fastlog_rastreamento/web:policyName/web-scaling-up",
-            "id": "web-scaling-up",
-            "name": "web-scaling-up",
-            "policy_type": "TargetTrackingScaling",
-            "resource_id": "service/fastlog_rastreamento/web",
-            "scalable_dimension": "ecs:service:DesiredCount",
-            "service_namespace": "ecs",
-            "step_scaling_policy_configuration": [],
-            "target_tracking_scaling_policy_configuration": [
-              {
-                "customized_metric_specification": [],
-                "disable_scale_in": false,
-                "predefined_metric_specification": [
-                  {
-                    "predefined_metric_type": "ECSServiceAverageCPUUtilization",
-                    "resource_label": ""
-                  }
-                ],
-                "scale_in_cooldown": 60,
-                "scale_out_cooldown": 60,
-                "target_value": 75
-              }
-            ]
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "aws_appautoscaling_target.web_scaling_target",
-            "aws_db_instance.db-prod_fastlog",
-            "aws_db_subnet_group.db-subnet_group",
-            "aws_ecs_cluster.fastlog_rastreamento",
-            "aws_ecs_service.service-web",
-            "aws_ecs_task_definition.task-api_rastreamento",
-            "aws_ecs_task_definition.task-web_app",
-            "aws_lb_target_group.tg-web",
-            "aws_security_group.conexao_backend",
-            "aws_security_group.conexao_frontend",
-            "aws_subnet.public-fastlog-east_1a",
-            "aws_subnet.public-fastlog-east_1b",
-            "aws_vpc.vpc-fastlog"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_appautoscaling_target",
-      "name": "web_scaling_target",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "arn": "arn:aws:application-autoscaling:us-east-1:764543902808:scalable-target/0ec5034808d5d5fa400397499dd6a21f6bd9",
-            "id": "service/fastlog_rastreamento/web",
-            "max_capacity": 3,
-            "min_capacity": 1,
-            "resource_id": "service/fastlog_rastreamento/web",
-            "role_arn": "arn:aws:iam::764543902808:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
-            "scalable_dimension": "ecs:service:DesiredCount",
-            "service_namespace": "ecs",
-            "suspended_state": [
-              {
-                "dynamic_scaling_in_suspended": false,
-                "dynamic_scaling_out_suspended": false,
-                "scheduled_scaling_suspended": false
-              }
-            ],
-            "tags": null,
-            "tags_all": {}
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "aws_db_instance.db-prod_fastlog",
-            "aws_db_subnet_group.db-subnet_group",
-            "aws_ecs_cluster.fastlog_rastreamento",
-            "aws_ecs_service.service-web",
-            "aws_ecs_task_definition.task-api_rastreamento",
-            "aws_ecs_task_definition.task-web_app",
-            "aws_lb_target_group.tg-web",
-            "aws_security_group.conexao_backend",
-            "aws_security_group.conexao_frontend",
-            "aws_subnet.public-fastlog-east_1a",
-            "aws_subnet.public-fastlog-east_1b",
-            "aws_vpc.vpc-fastlog"
-          ]
-        }
-      ]
-    },
     {
       "mode": "managed",
       "type": "aws_cloudwatch_log_group",
@@ -190,25 +87,25 @@
           "schema_version": 1,
           "attributes": {
             "actions_enabled": true,
-            "alarm_actions": null,
+            "alarm_actions": [],
             "alarm_description": "Alerta quando a utilização de CPU exceder 80%.",
             "alarm_name": "high-cpu-api_rastreamento",
             "arn": "arn:aws:cloudwatch:us-east-1:764543902808:alarm:high-cpu-api_rastreamento",
             "comparison_operator": "GreaterThanOrEqualToThreshold",
             "datapoints_to_alarm": 0,
             "dimensions": {
-              "ClusterName": "fastlog_rastreamento",
+              "ClusterName": "web_application",
               "ServiceName": "api_rastreamento"
             },
             "evaluate_low_sample_count_percentiles": "",
             "evaluation_periods": 2,
             "extended_statistic": "",
             "id": "high-cpu-api_rastreamento",
-            "insufficient_data_actions": null,
+            "insufficient_data_actions": [],
             "metric_name": "CPUUtilization",
             "metric_query": [],
             "namespace": "AWS/ECS",
-            "ok_actions": null,
+            "ok_actions": [],
             "period": 60,
             "statistic": "Average",
             "tags": {
@@ -255,25 +152,25 @@
           "schema_version": 1,
           "attributes": {
             "actions_enabled": true,
-            "alarm_actions": null,
+            "alarm_actions": [],
             "alarm_description": "Alerta quando a utilização de CPU exceder 80%.",
             "alarm_name": "high-cpu-web_fastlog",
             "arn": "arn:aws:cloudwatch:us-east-1:764543902808:alarm:high-cpu-web_fastlog",
             "comparison_operator": "GreaterThanOrEqualToThreshold",
             "datapoints_to_alarm": 0,
             "dimensions": {
-              "ClusterName": "fastlog_rastreamento",
+              "ClusterName": "web_application",
               "ServiceName": "web"
             },
             "evaluate_low_sample_count_percentiles": "",
             "evaluation_periods": 2,
             "extended_statistic": "",
             "id": "high-cpu-web_fastlog",
-            "insufficient_data_actions": null,
+            "insufficient_data_actions": [],
             "metric_name": "CPUUtilization",
             "metric_query": [],
             "namespace": "AWS/ECS",
-            "ok_actions": null,
+            "ok_actions": [],
             "period": 60,
             "statistic": "Average",
             "tags": {
@@ -320,25 +217,25 @@
           "schema_version": 1,
           "attributes": {
             "actions_enabled": true,
-            "alarm_actions": null,
+            "alarm_actions": [],
             "alarm_description": "Alerta quando a utilização de memória exceder 80%.",
             "alarm_name": "high-memory-api_rastreamento",
             "arn": "arn:aws:cloudwatch:us-east-1:764543902808:alarm:high-memory-api_rastreamento",
             "comparison_operator": "GreaterThanOrEqualToThreshold",
             "datapoints_to_alarm": 0,
             "dimensions": {
-              "ClusterName": "fastlog_rastreamento",
+              "ClusterName": "web_application",
               "ServiceName": "api_rastreamento"
             },
             "evaluate_low_sample_count_percentiles": "",
             "evaluation_periods": 2,
             "extended_statistic": "",
             "id": "high-memory-api_rastreamento",
-            "insufficient_data_actions": null,
+            "insufficient_data_actions": [],
             "metric_name": "MemoryUtilization",
             "metric_query": [],
             "namespace": "AWS/ECS",
-            "ok_actions": null,
+            "ok_actions": [],
             "period": 60,
             "statistic": "Average",
             "tags": {
@@ -385,25 +282,25 @@
           "schema_version": 1,
           "attributes": {
             "actions_enabled": true,
-            "alarm_actions": null,
+            "alarm_actions": [],
             "alarm_description": "Alerta quando a utilização de memória exceder 80%.",
             "alarm_name": "high-memory-web_fastlog",
             "arn": "arn:aws:cloudwatch:us-east-1:764543902808:alarm:high-memory-web_fastlog",
             "comparison_operator": "GreaterThanOrEqualToThreshold",
             "datapoints_to_alarm": 0,
             "dimensions": {
-              "ClusterName": "fastlog_rastreamento",
+              "ClusterName": "web_application",
               "ServiceName": "web"
             },
             "evaluate_low_sample_count_percentiles": "",
             "evaluation_periods": 2,
             "extended_statistic": "",
             "id": "high-memory-web_fastlog",
-            "insufficient_data_actions": null,
+            "insufficient_data_actions": [],
             "metric_name": "MemoryUtilization",
             "metric_query": [],
             "namespace": "AWS/ECS",
-            "ok_actions": null,
+            "ok_actions": [],
             "period": 60,
             "statistic": "Average",
             "tags": {
@@ -450,25 +347,25 @@
           "schema_version": 1,
           "attributes": {
             "actions_enabled": true,
-            "alarm_actions": null,
+            "alarm_actions": [],
             "alarm_description": "Alerta quando o número de tarefas em execução for menor que 1.",
             "alarm_name": "low-task-count",
             "arn": "arn:aws:cloudwatch:us-east-1:764543902808:alarm:low-task-count",
             "comparison_operator": "LessThanThreshold",
             "datapoints_to_alarm": 0,
             "dimensions": {
-              "ClusterName": "fastlog_rastreamento",
+              "ClusterName": "web_application",
               "ServiceName": "api_rastreamento"
             },
             "evaluate_low_sample_count_percentiles": "",
             "evaluation_periods": 2,
             "extended_statistic": "",
             "id": "low-task-count",
-            "insufficient_data_actions": null,
+            "insufficient_data_actions": [],
             "metric_name": "RunningTaskCount",
             "metric_query": [],
             "namespace": "AWS/ECS",
-            "ok_actions": null,
+            "ok_actions": [],
             "period": 60,
             "statistic": "Minimum",
             "tags": {
@@ -520,10 +417,10 @@
             "apply_immediately": false,
             "arn": "arn:aws:rds:us-east-1:764543902808:db:fastlog-prod",
             "auto_minor_version_upgrade": true,
-            "availability_zone": "us-east-1a",
+            "availability_zone": "us-east-1b",
             "backup_retention_period": 7,
             "backup_target": "region",
-            "backup_window": "05:21-05:51",
+            "backup_window": "05:12-05:42",
             "blue_green_update": [],
             "ca_cert_identifier": "rds-ca-rsa2048-g1",
             "character_set_name": "",
@@ -537,11 +434,11 @@
             "deletion_protection": false,
             "domain": "",
             "domain_auth_secret_arn": "",
-            "domain_dns_ips": null,
+            "domain_dns_ips": [],
             "domain_fqdn": "",
             "domain_iam_role_name": "",
             "domain_ou": "",
-            "enabled_cloudwatch_logs_exports": null,
+            "enabled_cloudwatch_logs_exports": [],
             "endpoint": "fastlog-prod.ctg6686gojod.us-east-1.rds.amazonaws.com:5432",
             "engine": "postgres",
             "engine_lifecycle_support": "open-source-rds-extended-support",
@@ -550,16 +447,16 @@
             "final_snapshot_identifier": null,
             "hosted_zone_id": "Z2R2ITUGPM61AM",
             "iam_database_authentication_enabled": false,
-            "id": "db-WZ6DHXW4BETHZR2SNKXJQY3OCE",
+            "id": "db-WV73IZRICEDSXQCFJ27QX4OF2U",
             "identifier": "fastlog-prod",
             "identifier_prefix": "",
             "instance_class": "db.t3.micro",
             "iops": 0,
             "kms_key_id": "",
-            "latest_restorable_time": "2024-11-25T22:49:37Z",
+            "latest_restorable_time": "2024-11-25T21:29:37Z",
             "license_model": "postgresql-license",
             "listener_endpoint": [],
-            "maintenance_window": "wed:07:07-wed:07:37",
+            "maintenance_window": "sun:07:19-sun:07:49",
             "manage_master_user_password": null,
             "master_user_secret": [],
             "master_user_secret_kms_key_id": null,
@@ -580,7 +477,7 @@
             "replica_mode": "",
             "replicas": [],
             "replicate_source_db": "",
-            "resource_id": "db-WZ6DHXW4BETHZR2SNKXJQY3OCE",
+            "resource_id": "db-WV73IZRICEDSXQCFJ27QX4OF2U",
             "restore_to_point_in_time": [],
             "s3_import": [],
             "skip_final_snapshot": true,
@@ -604,8 +501,8 @@
             "upgrade_storage_config": null,
             "username": "postgres",
             "vpc_security_group_ids": [
-              "sg-054e7b64949e7b0d6",
-              "sg-09f8ce09f36c33e7f"
+              "sg-06e90356c52acb15b",
+              "sg-0d158c92f937fa1a4"
             ]
           },
           "sensitive_attributes": [
@@ -643,8 +540,8 @@
             "name": "db-subnet_group",
             "name_prefix": "",
             "subnet_ids": [
-              "subnet-0a0c37a602b8a867b",
-              "subnet-0d3cc1593d4cefb74"
+              "subnet-0a1b996af685212a3",
+              "subnet-0d5cdc89f2adbc060"
             ],
             "supported_network_types": [
               "IPV4"
@@ -680,10 +577,10 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:ecs:us-east-1:764543902808:cluster/fastlog_rastreamento",
+            "arn": "arn:aws:ecs:us-east-1:764543902808:cluster/web_application",
             "configuration": [],
-            "id": "arn:aws:ecs:us-east-1:764543902808:cluster/fastlog_rastreamento",
-            "name": "fastlog_rastreamento",
+            "id": "arn:aws:ecs:us-east-1:764543902808:cluster/web_application",
+            "name": "web_application",
             "service_connect_defaults": [],
             "setting": [
               {
@@ -710,97 +607,6 @@
     {
       "mode": "managed",
       "type": "aws_ecs_service",
-      "name": "service-api_rastreamento",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 1,
-          "attributes": {
-            "alarms": [],
-            "availability_zone_rebalancing": "DISABLED",
-            "capacity_provider_strategy": [],
-            "cluster": "arn:aws:ecs:us-east-1:764543902808:cluster/fastlog_rastreamento",
-            "deployment_circuit_breaker": [
-              {
-                "enable": false,
-                "rollback": false
-              }
-            ],
-            "deployment_controller": [
-              {
-                "type": "ECS"
-              }
-            ],
-            "deployment_maximum_percent": 200,
-            "deployment_minimum_healthy_percent": 100,
-            "desired_count": 2,
-            "enable_ecs_managed_tags": false,
-            "enable_execute_command": false,
-            "force_delete": null,
-            "force_new_deployment": null,
-            "health_check_grace_period_seconds": 0,
-            "iam_role": "/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
-            "id": "arn:aws:ecs:us-east-1:764543902808:service/fastlog_rastreamento/api_rastreamento",
-            "launch_type": "FARGATE",
-            "load_balancer": [],
-            "name": "api_rastreamento",
-            "network_configuration": [
-              {
-                "assign_public_ip": false,
-                "security_groups": [
-                  "sg-054e7b64949e7b0d6"
-                ],
-                "subnets": [
-                  "subnet-04f977e1decd240d8",
-                  "subnet-0678622d904fb203d"
-                ]
-              }
-            ],
-            "ordered_placement_strategy": [],
-            "placement_constraints": [],
-            "platform_version": "LATEST",
-            "propagate_tags": "NONE",
-            "scheduling_strategy": "REPLICA",
-            "service_connect_configuration": [],
-            "service_registries": [],
-            "tags": {
-              "Environment": "prod",
-              "Name": "service-api_rastreamento",
-              "Product": "fastlog"
-            },
-            "tags_all": {
-              "Environment": "prod",
-              "Name": "service-api_rastreamento",
-              "Product": "fastlog"
-            },
-            "task_definition": "arn:aws:ecs:us-east-1:764543902808:task-definition/api_rastreamento:3",
-            "timeouts": null,
-            "triggers": {},
-            "volume_configuration": [],
-            "vpc_lattice_configurations": [],
-            "wait_for_steady_state": false
-          },
-          "sensitive_attributes": [],
-          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
-          "dependencies": [
-            "aws_db_instance.db-prod_fastlog",
-            "aws_db_subnet_group.db-subnet_group",
-            "aws_ecs_cluster.fastlog_rastreamento",
-            "aws_ecs_task_definition.task-api_rastreamento",
-            "aws_security_group.conexao_backend",
-            "aws_security_group.conexao_frontend",
-            "aws_subnet.private-fastlog-east_1a",
-            "aws_subnet.private-fastlog-east_1b",
-            "aws_subnet.public-fastlog-east_1a",
-            "aws_subnet.public-fastlog-east_1b",
-            "aws_vpc.vpc-fastlog"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_ecs_service",
       "name": "service-web",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
       "instances": [
@@ -810,7 +616,7 @@
             "alarms": [],
             "availability_zone_rebalancing": "DISABLED",
             "capacity_provider_strategy": [],
-            "cluster": "arn:aws:ecs:us-east-1:764543902808:cluster/fastlog_rastreamento",
+            "cluster": "arn:aws:ecs:us-east-1:764543902808:cluster/web_application",
             "deployment_circuit_breaker": [
               {
                 "enable": false,
@@ -824,21 +630,21 @@
             ],
             "deployment_maximum_percent": 200,
             "deployment_minimum_healthy_percent": 100,
-            "desired_count": 2,
+            "desired_count": 1,
             "enable_ecs_managed_tags": false,
             "enable_execute_command": false,
             "force_delete": null,
             "force_new_deployment": null,
             "health_check_grace_period_seconds": 0,
             "iam_role": "/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
-            "id": "arn:aws:ecs:us-east-1:764543902808:service/fastlog_rastreamento/web",
+            "id": "arn:aws:ecs:us-east-1:764543902808:service/web_application/web",
             "launch_type": "FARGATE",
             "load_balancer": [
               {
                 "container_name": "web",
                 "container_port": 80,
                 "elb_name": "",
-                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/78207b1e71af9f59"
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/0fb41c6f5016f9ae"
               }
             ],
             "name": "web",
@@ -846,10 +652,10 @@
               {
                 "assign_public_ip": true,
                 "security_groups": [
-                  "sg-09f8ce09f36c33e7f"
+                  "sg-06e90356c52acb15b"
                 ],
                 "subnets": [
-                  "subnet-0a0c37a602b8a867b"
+                  "subnet-0d5cdc89f2adbc060"
                 ]
               }
             ],
@@ -870,7 +676,7 @@
               "Name": "service-web",
               "Product": "fastlog"
             },
-            "task_definition": "arn:aws:ecs:us-east-1:764543902808:task-definition/web_fastlog:3",
+            "task_definition": "arn:aws:ecs:us-east-1:764543902808:task-definition/web_fastlog:2",
             "timeouts": null,
             "triggers": {},
             "volume_configuration": [],
@@ -904,7 +710,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ecs:us-east-1:764543902808:task-definition/api_rastreamento:3",
+            "arn": "arn:aws:ecs:us-east-1:764543902808:task-definition/api_rastreamento:2",
             "arn_without_revision": "arn:aws:ecs:us-east-1:764543902808:task-definition/api_rastreamento",
             "container_definitions": "[{\"environment\":[{\"name\":\"DATASOURCE_POSTGRES_PASSWORD\",\"value\":\"fastlog123\"},{\"name\":\"DATASOURCE_POSTGRES_URL\",\"value\":\"fastlog-prod.ctg6686gojod.us-east-1.rds.amazonaws.com:5432\"}],\"essential\":true,\"image\":\"uken49/api-rastreamento:latest\",\"memory\":1024,\"mountPoints\":[],\"name\":\"api_rastreamento\",\"portMappings\":[{\"appProtocol\":\"http\",\"containerPort\":8000,\"hostPort\":8000,\"protocol\":\"tcp\"}],\"systemControls\":[],\"volumesFrom\":[]}]",
             "cpu": "512",
@@ -922,7 +728,7 @@
             "requires_compatibilities": [
               "FARGATE"
             ],
-            "revision": 3,
+            "revision": 2,
             "runtime_platform": [],
             "skip_destroy": false,
             "tags": {
@@ -969,7 +775,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ecs:us-east-1:764543902808:task-definition/web_fastlog:3",
+            "arn": "arn:aws:ecs:us-east-1:764543902808:task-definition/web_fastlog:2",
             "arn_without_revision": "arn:aws:ecs:us-east-1:764543902808:task-definition/web_fastlog",
             "container_definitions": "[{\"environment\":[],\"essential\":true,\"image\":\"uken49/web-fastlog:latest\",\"memory\":1024,\"mountPoints\":[],\"name\":\"web\",\"portMappings\":[{\"containerPort\":80,\"hostPort\":80,\"protocol\":\"tcp\"}],\"systemControls\":[],\"volumesFrom\":[]}]",
             "cpu": "512",
@@ -987,7 +793,7 @@
             "requires_compatibilities": [
               "FARGATE"
             ],
-            "revision": 3,
+            "revision": 2,
             "runtime_platform": [],
             "skip_destroy": false,
             "tags": {
@@ -1030,24 +836,24 @@
           "schema_version": 0,
           "attributes": {
             "address": null,
-            "allocation_id": "eipalloc-0fad0fb7995131a64",
-            "arn": "arn:aws:ec2:us-east-1:764543902808:elastic-ip/eipalloc-0fad0fb7995131a64",
+            "allocation_id": "eipalloc-0b968fd4d1f38b073",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:elastic-ip/eipalloc-0b968fd4d1f38b073",
             "associate_with_private_ip": null,
-            "association_id": "",
+            "association_id": "eipassoc-0aa8f799738d2afd9",
             "carrier_ip": "",
             "customer_owned_ip": "",
             "customer_owned_ipv4_pool": "",
             "domain": "vpc",
-            "id": "eipalloc-0fad0fb7995131a64",
+            "id": "eipalloc-0b968fd4d1f38b073",
             "instance": "",
             "ipam_pool_id": null,
             "network_border_group": "us-east-1",
-            "network_interface": "",
-            "private_dns": null,
-            "private_ip": "",
+            "network_interface": "eni-050e26954fadc857e",
+            "private_dns": "ip-10-0-0-11.ec2.internal",
+            "private_ip": "10.0.0.11",
             "ptr_record": "",
-            "public_dns": "ec2-54-84-225-117.compute-1.amazonaws.com",
-            "public_ip": "54.84.225.117",
+            "public_dns": "ec2-3-220-125-224.compute-1.amazonaws.com",
+            "public_ip": "3.220.125.224",
             "public_ipv4_pool": "amazon",
             "tags": {
               "Environment": "prod",
@@ -1075,24 +881,24 @@
           "schema_version": 0,
           "attributes": {
             "address": null,
-            "allocation_id": "eipalloc-04e2c0a176e024b28",
-            "arn": "arn:aws:ec2:us-east-1:764543902808:elastic-ip/eipalloc-04e2c0a176e024b28",
+            "allocation_id": "eipalloc-0b20e4afd8b637d33",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:elastic-ip/eipalloc-0b20e4afd8b637d33",
             "associate_with_private_ip": null,
-            "association_id": "",
+            "association_id": "eipassoc-0c9998fed6f72891b",
             "carrier_ip": "",
             "customer_owned_ip": "",
             "customer_owned_ipv4_pool": "",
             "domain": "vpc",
-            "id": "eipalloc-04e2c0a176e024b28",
+            "id": "eipalloc-0b20e4afd8b637d33",
             "instance": "",
             "ipam_pool_id": null,
             "network_border_group": "us-east-1",
-            "network_interface": "",
-            "private_dns": null,
-            "private_ip": "",
+            "network_interface": "eni-02fb4ed3ae6e74006",
+            "private_dns": "ip-10-1-0-6.ec2.internal",
+            "private_ip": "10.1.0.6",
             "ptr_record": "",
-            "public_dns": "ec2-52-203-30-11.compute-1.amazonaws.com",
-            "public_ip": "52.203.30.11",
+            "public_dns": "ec2-98-85-24-44.compute-1.amazonaws.com",
+            "public_ip": "98.85.24.44",
             "public_ipv4_pool": "amazon",
             "tags": {
               "Environment": "prod",
@@ -1126,8 +932,8 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:internet-gateway/igw-0181f33b0a45b6330",
-            "id": "igw-0181f33b0a45b6330",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:internet-gateway/igw-0913c23a459f91f0d",
+            "id": "igw-0913c23a459f91f0d",
             "owner_id": "764543902808",
             "tags": {
               "Environment": "prod",
@@ -1166,8 +972,8 @@
                 "prefix": ""
               }
             ],
-            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/a8450792946fcc1e",
-            "arn_suffix": "app/lb-web/a8450792946fcc1e",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/ee8a01693fce371f",
+            "arn_suffix": "app/lb-web/ee8a01693fce371f",
             "client_keep_alive": 3600,
             "connection_logs": [
               {
@@ -1178,7 +984,7 @@
             ],
             "customer_owned_ipv4_pool": "",
             "desync_mitigation_mode": "defensive",
-            "dns_name": "lb-web-1204419432.us-east-1.elb.amazonaws.com",
+            "dns_name": "lb-web-2000853397.us-east-1.elb.amazonaws.com",
             "dns_record_client_routing_policy": null,
             "drop_invalid_header_fields": false,
             "enable_cross_zone_load_balancing": true,
@@ -1189,7 +995,7 @@
             "enable_xff_client_port": false,
             "enable_zonal_shift": false,
             "enforce_security_group_inbound_rules_on_private_link_traffic": "",
-            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/a8450792946fcc1e",
+            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/ee8a01693fce371f",
             "idle_timeout": 60,
             "internal": false,
             "ip_address_type": "ipv4",
@@ -1198,7 +1004,7 @@
             "name_prefix": "",
             "preserve_host_header": false,
             "security_groups": [
-              "sg-09f8ce09f36c33e7f"
+              "sg-06e90356c52acb15b"
             ],
             "subnet_mapping": [
               {
@@ -1206,19 +1012,19 @@
                 "ipv6_address": "",
                 "outpost_id": "",
                 "private_ipv4_address": "",
-                "subnet_id": "subnet-0a0c37a602b8a867b"
+                "subnet_id": "subnet-0a1b996af685212a3"
               },
               {
                 "allocation_id": "",
                 "ipv6_address": "",
                 "outpost_id": "",
                 "private_ipv4_address": "",
-                "subnet_id": "subnet-0d3cc1593d4cefb74"
+                "subnet_id": "subnet-0d5cdc89f2adbc060"
               }
             ],
             "subnets": [
-              "subnet-0a0c37a602b8a867b",
-              "subnet-0d3cc1593d4cefb74"
+              "subnet-0a1b996af685212a3",
+              "subnet-0d5cdc89f2adbc060"
             ],
             "tags": {
               "Environment": "prod",
@@ -1256,7 +1062,7 @@
           "schema_version": 0,
           "attributes": {
             "alpn_policy": null,
-            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:listener/app/lb-web/a8450792946fcc1e/ad6e34b8e523bfdc",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:listener/app/lb-web/ee8a01693fce371f/e00c85c69b79b211",
             "certificate_arn": null,
             "default_action": [
               {
@@ -1266,17 +1072,17 @@
                 "forward": [],
                 "order": 1,
                 "redirect": [],
-                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/78207b1e71af9f59",
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/0fb41c6f5016f9ae",
                 "type": "forward"
               }
             ],
-            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:listener/app/lb-web/a8450792946fcc1e/ad6e34b8e523bfdc",
-            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/a8450792946fcc1e",
+            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:listener/app/lb-web/ee8a01693fce371f/e00c85c69b79b211",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/ee8a01693fce371f",
             "mutual_authentication": [],
             "port": 80,
             "protocol": "HTTP",
             "ssl_policy": "",
-            "tags": null,
+            "tags": {},
             "tags_all": {},
             "tcp_idle_timeout_seconds": null,
             "timeouts": null
@@ -1303,8 +1109,8 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/78207b1e71af9f59",
-            "arn_suffix": "targetgroup/tg-web/78207b1e71af9f59",
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/0fb41c6f5016f9ae",
+            "arn_suffix": "targetgroup/tg-web/0fb41c6f5016f9ae",
             "connection_termination": null,
             "deregistration_delay": "300",
             "health_check": [
@@ -1320,10 +1126,12 @@
                 "unhealthy_threshold": 2
               }
             ],
-            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/78207b1e71af9f59",
+            "id": "arn:aws:elasticloadbalancing:us-east-1:764543902808:targetgroup/tg-web/0fb41c6f5016f9ae",
             "ip_address_type": "ipv4",
             "lambda_multi_value_headers_enabled": false,
-            "load_balancer_arns": [],
+            "load_balancer_arns": [
+              "arn:aws:elasticloadbalancing:us-east-1:764543902808:loadbalancer/app/lb-web/ee8a01693fce371f"
+            ],
             "load_balancing_algorithm_type": "round_robin",
             "load_balancing_anomaly_mitigation": "off",
             "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
@@ -1402,17 +1210,17 @@
           "index_key": "east-1a",
           "schema_version": 0,
           "attributes": {
-            "allocation_id": "eipalloc-0fad0fb7995131a64",
-            "association_id": "eipassoc-0a0f7c51925a98fbb",
+            "allocation_id": "eipalloc-0b968fd4d1f38b073",
+            "association_id": "eipassoc-0aa8f799738d2afd9",
             "connectivity_type": "public",
-            "id": "nat-0bf4c36889e1fb107",
-            "network_interface_id": "eni-043a2f75998fecad8",
-            "private_ip": "10.0.0.8",
-            "public_ip": "54.84.225.117",
-            "secondary_allocation_ids": null,
+            "id": "nat-0a7fb7ad58fe1d559",
+            "network_interface_id": "eni-050e26954fadc857e",
+            "private_ip": "10.0.0.11",
+            "public_ip": "3.220.125.224",
+            "secondary_allocation_ids": [],
             "secondary_private_ip_address_count": 0,
             "secondary_private_ip_addresses": [],
-            "subnet_id": "subnet-0a0c37a602b8a867b",
+            "subnet_id": "subnet-0d5cdc89f2adbc060",
             "tags": {
               "Environment": "prod",
               "Name": "nat-private-east-1a",
@@ -1439,17 +1247,17 @@
           "index_key": "east-1b",
           "schema_version": 0,
           "attributes": {
-            "allocation_id": "eipalloc-04e2c0a176e024b28",
-            "association_id": "eipassoc-0bbfdff855048acb1",
+            "allocation_id": "eipalloc-0b20e4afd8b637d33",
+            "association_id": "eipassoc-0c9998fed6f72891b",
             "connectivity_type": "public",
-            "id": "nat-0a962bd5102dfed3f",
-            "network_interface_id": "eni-0db78c1c070f4761c",
-            "private_ip": "10.1.0.8",
-            "public_ip": "52.203.30.11",
-            "secondary_allocation_ids": null,
+            "id": "nat-0fa3b3107186fd986",
+            "network_interface_id": "eni-02fb4ed3ae6e74006",
+            "private_ip": "10.1.0.6",
+            "public_ip": "98.85.24.44",
+            "secondary_allocation_ids": [],
             "secondary_private_ip_address_count": 0,
             "secondary_private_ip_addresses": [],
-            "subnet_id": "subnet-0d3cc1593d4cefb74",
+            "subnet_id": "subnet-0a1b996af685212a3",
             "tags": {
               "Environment": "prod",
               "Name": "nat-private-east-1b",
@@ -1484,8 +1292,8 @@
           "index_key": "east-1a",
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-0c89317c367671b4e",
-            "id": "rtb-0c89317c367671b4e",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-0629302477d870882",
+            "id": "rtb-0629302477d870882",
             "owner_id": "764543902808",
             "propagating_vgws": [],
             "route": [
@@ -1498,7 +1306,7 @@
                 "gateway_id": "",
                 "ipv6_cidr_block": "",
                 "local_gateway_id": "",
-                "nat_gateway_id": "nat-0bf4c36889e1fb107",
+                "nat_gateway_id": "nat-0a7fb7ad58fe1d559",
                 "network_interface_id": "",
                 "transit_gateway_id": "",
                 "vpc_endpoint_id": "",
@@ -1533,8 +1341,8 @@
           "index_key": "east-1b",
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-0c6d2848139da27a4",
-            "id": "rtb-0c6d2848139da27a4",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-0aba97b9ef4f56e52",
+            "id": "rtb-0aba97b9ef4f56e52",
             "owner_id": "764543902808",
             "propagating_vgws": [],
             "route": [
@@ -1547,7 +1355,7 @@
                 "gateway_id": "",
                 "ipv6_cidr_block": "",
                 "local_gateway_id": "",
-                "nat_gateway_id": "nat-0a962bd5102dfed3f",
+                "nat_gateway_id": "nat-0fa3b3107186fd986",
                 "network_interface_id": "",
                 "transit_gateway_id": "",
                 "vpc_endpoint_id": "",
@@ -1589,8 +1397,8 @@
         {
           "schema_version": 0,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-031d4a58b50e3e5cc",
-            "id": "rtb-031d4a58b50e3e5cc",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:route-table/rtb-08751c1197c542523",
+            "id": "rtb-08751c1197c542523",
             "owner_id": "764543902808",
             "propagating_vgws": [],
             "route": [
@@ -1600,7 +1408,7 @@
                 "core_network_arn": "",
                 "destination_prefix_list_id": "",
                 "egress_only_gateway_id": "",
-                "gateway_id": "igw-0181f33b0a45b6330",
+                "gateway_id": "igw-0913c23a459f91f0d",
                 "ipv6_cidr_block": "",
                 "local_gateway_id": "",
                 "nat_gateway_id": "",
@@ -1643,9 +1451,9 @@
           "schema_version": 0,
           "attributes": {
             "gateway_id": "",
-            "id": "rtbassoc-0bc49de1d28e11262",
-            "route_table_id": "rtb-0c89317c367671b4e",
-            "subnet_id": "subnet-04f977e1decd240d8",
+            "id": "rtbassoc-0b0e6135ebfb951f8",
+            "route_table_id": "rtb-0629302477d870882",
+            "subnet_id": "subnet-048b0fe89ce54c744",
             "timeouts": null
           },
           "sensitive_attributes": [],
@@ -1667,9 +1475,9 @@
           "schema_version": 0,
           "attributes": {
             "gateway_id": "",
-            "id": "rtbassoc-0caf954231e05ff19",
-            "route_table_id": "rtb-0c6d2848139da27a4",
-            "subnet_id": "subnet-0678622d904fb203d",
+            "id": "rtbassoc-0ef06083710465a82",
+            "route_table_id": "rtb-0aba97b9ef4f56e52",
+            "subnet_id": "subnet-0af9b2982271b12cc",
             "timeouts": null
           },
           "sensitive_attributes": [],
@@ -1698,9 +1506,9 @@
           "schema_version": 0,
           "attributes": {
             "gateway_id": "",
-            "id": "rtbassoc-0289879cfa388f182",
-            "route_table_id": "rtb-031d4a58b50e3e5cc",
-            "subnet_id": "subnet-0a0c37a602b8a867b",
+            "id": "rtbassoc-013974016a7276f82",
+            "route_table_id": "rtb-08751c1197c542523",
+            "subnet_id": "subnet-0d5cdc89f2adbc060",
             "timeouts": null
           },
           "sensitive_attributes": [],
@@ -1724,9 +1532,9 @@
           "schema_version": 0,
           "attributes": {
             "gateway_id": "",
-            "id": "rtbassoc-08e4a092f461af4af",
-            "route_table_id": "rtb-031d4a58b50e3e5cc",
-            "subnet_id": "subnet-0d3cc1593d4cefb74",
+            "id": "rtbassoc-0803ff715589a967f",
+            "route_table_id": "rtb-08751c1197c542523",
+            "subnet_id": "subnet-0a1b996af685212a3",
             "timeouts": null
           },
           "sensitive_attributes": [],
@@ -1749,7 +1557,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:security-group/sg-054e7b64949e7b0d6",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:security-group/sg-0d158c92f937fa1a4",
             "description": "Managed by Terraform",
             "egress": [
               {
@@ -1766,7 +1574,7 @@
                 "to_port": 0
               }
             ],
-            "id": "sg-054e7b64949e7b0d6",
+            "id": "sg-0d158c92f937fa1a4",
             "ingress": [
               {
                 "cidr_blocks": [
@@ -1795,7 +1603,7 @@
                 "to_port": 5432
               }
             ],
-            "name": "conexao_backend20241125224345575900000001",
+            "name": "conexao_backend20241125143302268100000001",
             "name_prefix": "conexao_backend",
             "owner_id": "764543902808",
             "revoke_rules_on_delete": false,
@@ -1829,7 +1637,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:security-group/sg-09f8ce09f36c33e7f",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:security-group/sg-06e90356c52acb15b",
             "description": "Managed by Terraform",
             "egress": [
               {
@@ -1846,7 +1654,7 @@
                 "to_port": 0
               }
             ],
-            "id": "sg-09f8ce09f36c33e7f",
+            "id": "sg-06e90356c52acb15b",
             "ingress": [
               {
                 "cidr_blocks": [
@@ -1901,7 +1709,7 @@
                 "to_port": 80
               }
             ],
-            "name": "conexao_frontend20241125224345582500000002",
+            "name": "conexao_frontend20241125143302275700000002",
             "name_prefix": "conexao_frontend",
             "owner_id": "764543902808",
             "revoke_rules_on_delete": false,
@@ -1935,7 +1743,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-04f977e1decd240d8",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-048b0fe89ce54c744",
             "assign_ipv6_address_on_creation": false,
             "availability_zone": "us-east-1a",
             "availability_zone_id": "use1-az6",
@@ -1945,7 +1753,7 @@
             "enable_lni_at_device_index": 0,
             "enable_resource_name_dns_a_record_on_launch": false,
             "enable_resource_name_dns_aaaa_record_on_launch": false,
-            "id": "subnet-04f977e1decd240d8",
+            "id": "subnet-048b0fe89ce54c744",
             "ipv6_cidr_block": "",
             "ipv6_cidr_block_association_id": "",
             "ipv6_native": false,
@@ -1984,7 +1792,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0678622d904fb203d",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0af9b2982271b12cc",
             "assign_ipv6_address_on_creation": false,
             "availability_zone": "us-east-1b",
             "availability_zone_id": "use1-az1",
@@ -1994,7 +1802,7 @@
             "enable_lni_at_device_index": 0,
             "enable_resource_name_dns_a_record_on_launch": false,
             "enable_resource_name_dns_aaaa_record_on_launch": false,
-            "id": "subnet-0678622d904fb203d",
+            "id": "subnet-0af9b2982271b12cc",
             "ipv6_cidr_block": "",
             "ipv6_cidr_block_association_id": "",
             "ipv6_native": false,
@@ -2033,7 +1841,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0a0c37a602b8a867b",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0d5cdc89f2adbc060",
             "assign_ipv6_address_on_creation": false,
             "availability_zone": "us-east-1a",
             "availability_zone_id": "use1-az6",
@@ -2043,7 +1851,7 @@
             "enable_lni_at_device_index": 0,
             "enable_resource_name_dns_a_record_on_launch": false,
             "enable_resource_name_dns_aaaa_record_on_launch": false,
-            "id": "subnet-0a0c37a602b8a867b",
+            "id": "subnet-0d5cdc89f2adbc060",
             "ipv6_cidr_block": "",
             "ipv6_cidr_block_association_id": "",
             "ipv6_native": false,
@@ -2082,7 +1890,7 @@
         {
           "schema_version": 1,
           "attributes": {
-            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0d3cc1593d4cefb74",
+            "arn": "arn:aws:ec2:us-east-1:764543902808:subnet/subnet-0a1b996af685212a3",
             "assign_ipv6_address_on_creation": false,
             "availability_zone": "us-east-1b",
             "availability_zone_id": "use1-az1",
@@ -2092,7 +1900,7 @@
             "enable_lni_at_device_index": 0,
             "enable_resource_name_dns_a_record_on_launch": false,
             "enable_resource_name_dns_aaaa_record_on_launch": false,
-            "id": "subnet-0d3cc1593d4cefb74",
+            "id": "subnet-0a1b996af685212a3",
             "ipv6_cidr_block": "",
             "ipv6_cidr_block_association_id": "",
             "ipv6_native": false,
