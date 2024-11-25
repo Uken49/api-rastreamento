@@ -12,8 +12,8 @@ resource "aws_db_subnet_group" "db-subnet_group" {
   }
 }
 
-resource "aws_db_instance" "db_prod-fastlog" {
-  identifier              = "prod-fastlog"
+resource "aws_db_instance" "db-prod_fastlog" {
+  identifier              = "fastlog-prod"
   allocated_storage       = 20
   engine                  = "postgres"
   engine_version          = "16.3"
@@ -22,14 +22,14 @@ resource "aws_db_instance" "db_prod-fastlog" {
   password                = var.RDS_PASSWORD
   db_name                 = "fastlog"
   publicly_accessible     = true
-  vpc_security_group_ids  = [aws_security_group.conexao_frontend.id]
+  vpc_security_group_ids  = [aws_security_group.conexao_frontend.id, aws_security_group.conexao_backend.id]
   db_subnet_group_name    = aws_db_subnet_group.db-subnet_group.name
   skip_final_snapshot     = true
   backup_retention_period = 7
   multi_az                = false
 
   tags = {
-    Name        = "db_prod-fastlog"
+    Name        = "db-prod_fastlog"
     Product     = "fastlog"
     Environment = "prod"
   }

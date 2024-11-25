@@ -86,7 +86,7 @@ resource "aws_subnet" "private-fastlog-east_1a" {
 resource "aws_subnet" "private-fastlog-east_1b" {
   vpc_id            = aws_vpc.vpc-fastlog.id
   cidr_block        = "10.1.0.16/28"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
 
   tags = {
     Name        = "subnet_private-east_1b"
