@@ -182,3 +182,48 @@ resource "aws_lb_listener" "lb-listener_web" {
     target_group_arn = aws_lb_target_group.tg-web.arn
   }
 }
+
+# Auto Scaling para Service Web
+resource "aws_appautoscaling_target" "web_scaling_target" {
+  max_capacity       = 3
+  min_capacity       = 1
+  resource_id        = "service/${aws_ecs_cluster.fastlog_rastreamento.name}/${aws_ecs_service.service-web.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
+
+# Política de Escalabilidade (Aumento com base em uso de CPU)
+resource "aws_appautoscaling_policy" "web_scaling_up" {
+  name               = "web-scaling-up"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.web_scaling_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.web_scaling_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.web_scaling_target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    target_value = 75.0
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+    scale_in_cooldown  = 60
+    scale_out_cooldown = 60
+  }
+}
+
+# Política de Escalabilidade (Redução com base em uso de CPU)
+resource "aws_appautoscaling_policy" "web_scaling_down" {
+  name               = "web-scaling-down"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.web_scaling_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.web_scaling_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.web_scaling_target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    target_value = 25.0
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+    scale_in_cooldown  = 60
+    scale_out_cooldown = 60
+  }
+}
