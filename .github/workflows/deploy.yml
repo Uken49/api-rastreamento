@@ -24,8 +24,12 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Construindo container
-      run: docker build . --file Dockerfile --tag uken49/api-rastreamento:${{ env.IMAGE_VERSION }}
+    - name: Configurar TAG
+      id: vars
+      run: echo "IMAGE_VERSION=$(date +%s)" >> $GITHUB_ENV
   
-    - name: Enviando imagem para Docker Hub
-      run: docker push uken49/api-rastreamento:${{ env.IMAGE_VERSION }}
+    - name: Construir e enviar imagem
+      run: |
+        docker build -t uken49/api-rastreamento:${{ env.IMAGE_VERSION }} -t uken49/api-rastreamento:latest .
+        docker push uken49/api-rastreamento:${{ env.IMAGE_VERSION }}
+        docker push uken49/api-rastreamento:latest

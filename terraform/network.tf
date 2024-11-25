@@ -12,6 +12,13 @@ resource "aws_vpc" "vpc-fastlog" {
   }
 }
 
+# Criar um namespace privado para o Service Discovery
+resource "aws_service_discovery_private_dns_namespace" "nm-fastlog" {
+  name        = "nm-fastlog"
+  description = "Namespace privado para o Fastlog"
+  vpc         = aws_vpc.vpc-fastlog.id
+}
+
 # Associação para adicionar um CIDR secundário
 resource "aws_vpc_ipv4_cidr_block_association" "vpc-fastlog_additional_cidr" {
   vpc_id     = aws_vpc.vpc-fastlog.id
@@ -86,7 +93,7 @@ resource "aws_subnet" "private-fastlog-east_1a" {
 resource "aws_subnet" "private-fastlog-east_1b" {
   vpc_id            = aws_vpc.vpc-fastlog.id
   cidr_block        = "10.1.0.16/28"
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
 
   tags = {
     Name        = "subnet_private-east_1b"
