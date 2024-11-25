@@ -78,12 +78,6 @@ resource "aws_ecs_task_definition" "task-web_app" {
           containerPort = 80
           protocol      = "tcp"
         }
-      ],
-      environment = [
-        {
-          name  = "RASTREAMENTO"
-          value = "http://${aws_service_discovery_service.api_rastreamento.name}/rastreamento"
-        }
       ]
     }
   ])
@@ -104,14 +98,14 @@ resource "aws_ecs_service" "service-api_rastreamento" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = aws_subnet.private.*.id
-    security_groups  = [aws_security_group.sg_api_rastreamento.id]
+    subnets = [
+      aws_subnet.private-fastlog-east_1a.id,
+      aws_subnet.private-fastlog-east_1b.id
+    ]
+    security_groups  = [aws_security_group.conexao_backend.id]
     assign_public_ip = false
   }
 
-  service_registries {
-    registry_arn = aws_service_discovery_service.api_rastreamento.arn
-  }
   tags = {
     Name        = "service-api_rastreamento"
     Product     = "fastlog"
@@ -127,14 +121,17 @@ resource "aws_ecs_service" "service-web" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = aws_subnet.public.*.id
-    security_groups  = [aws_security_group.sg_web.id]
+    subnets = [
+      aws_subnet.public-fastlog-east_1a.id,
+      aws_subnet.public-fastlog-east_1a.id
+    ]
+    security_groups  = [aws_security_group.conexao_frontend.id]
     assign_public_ip = true
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.tg_web.arn
-    container_name   = "lb-fastlog"
+    target_group_arn = aws_lb_target_group.tg-web.arn
+    container_name   = "web"
     container_port   = 80
   }
 

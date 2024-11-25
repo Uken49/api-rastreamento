@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${DATASOURCE_POSTGRES_URL}:5432/fastlog
+    url: jdbc:postgresql://${DATASOURCE_POSTGRES_URL}/fastlog
     username: postgres
     password: ${DATASOURCE_POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
